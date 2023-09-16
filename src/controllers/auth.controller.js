@@ -47,3 +47,29 @@ export const signup = async (req, res) => {
     return res.status(404).json(error);
   }
 };
+
+export const getAllProfiles = async (req, res) => {
+  try {
+    const findUsers = await User.find({});
+
+    if (!findUsers) return res.status(402).json("Error");
+
+    return res.status(200).json({ users: findUsers });
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+export const getProfile = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const userFind = await User.findById(id);
+
+    if (!userFind) return res.status(402).json("User Not Found");
+
+    return res.status(200).json({ user: userFind });
+  } catch (error) {
+    return res.status(500).json("User Not Found");
+  }
+};
