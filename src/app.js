@@ -1,4 +1,5 @@
 import express from "express";
+import "./database.js";
 
 import authRoutes from "./routes/auth.routes.js";
 
