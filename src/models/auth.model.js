@@ -8,13 +8,18 @@ const userSchema = new Schema({
     lowercase: true,
     required: true,
   },
+  fullname: {
+    type: String,
+    required: true,
+    lowercase: true,
+  },
   password: {
     type: String,
     required: true,
   },
   gender: {
     type: String,
-    enum: ["Masculino", "Femenino", "No especificado"],
+    enum: ["masculino", "femenino", "no especificado"],
     required: true,
   },
   dataOfBirth: {
