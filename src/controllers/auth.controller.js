@@ -1,7 +1,25 @@
 import User from "../models/auth.model.js";
 
-export const signin = (req, res) => {
-  res.send("login");
+export const signin = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+
+    if (!user)
+      return res.status(400).json({ status: 400, message: "User Not Found." });
+
+    const authPassword = await user.validatePassword(password);
+
+    if (!authPassword)
+      return res
+        .status(400)
+        .json({ status: 400, message: "Error Password Incorrect" });
+
+    return res.status(200).json({ user });
+  } catch (error) {
+    return res.status(500).json({ message: "internal server error (!)" });
+  }
 };
 
 export const signup = async (req, res) => {
@@ -18,7 +36,11 @@ export const signup = async (req, res) => {
       role: "admin",
     });
 
-    if (!newuser) return res.status(402).json("Error al crear usuario");
+    newuser.password = await newuser.encryptPassword(newuser.password);
+
+    const savedUser = await newuser.save();
+
+    if (!savedUser) return res.status(402).json("Error al crear usuario");
 
     return res.status(200).json({ user: newuser });
   } catch (error) {
