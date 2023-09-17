@@ -2,6 +2,7 @@ import express from "express";
 import "./database.js";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
+import areaRoutes from "./routes/area.routes.js";
 
 // Settings
 
@@ -13,6 +14,7 @@ app.set("PORT", process.env.PORT || 4000);
 // Routes
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/area", areaRoutes);
 
 // Server
 
