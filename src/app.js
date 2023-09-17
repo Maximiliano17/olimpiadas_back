@@ -1,11 +1,13 @@
 import express from "express";
 import "./database.js";
+import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 
 // Settings
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.set("PORT", process.env.PORT || 4000);
 
 // Routes
