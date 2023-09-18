@@ -22,6 +22,11 @@ export const areaSchema = new Schema({
       ref: "User",
     },
   ],
+  schedule: {
+    type: String,
+    lowercase: true,
+    required: true,
+  },
 });
 
 export default model("Area", areaSchema);

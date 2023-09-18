@@ -17,14 +17,14 @@ export const getArea = (req, res) => {
 };
 
 export const createArea = async (req, res) => {
-  const { name, beds, level, personal } = req.body;
+  const { name, beds, level, schedule } = req.body;
 
   try {
     const createArea = await Area.create({
       name,
       beds,
       level,
-      personal,
+      schedule,
     });
 
     if (!createArea) return res.json("Area no Creada!");
