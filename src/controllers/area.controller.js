@@ -1,7 +1,15 @@
 import Area from "../models/area.model.js";
 
-export const getAllAreas = (req, res) => {
-  res.send("get all areas");
+export const getAllAreas = async (req, res) => {
+  try {
+    const findAreas = await Area.find({});
+
+    if (!findAreas) return res.status(401).json("No se encontraron areas");
+
+    return res.status(200).json({ findAreas });
+  } catch (err) {
+    return res.json(err);
+  }
 };
 
 export const getArea = (req, res) => {
