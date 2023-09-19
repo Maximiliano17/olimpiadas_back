@@ -23,17 +23,18 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  //   const { username, password, gender, phone, specialization, role } = req.body;
+    const { username, password, gender, phone, specialization, role, dataOfBirth, fullname } = req.body;
 
   try {
     const newuser = await User.create({
-      username: "JuampaVLB",
-      password: "Lucas1999",
-      gender: "Masculino",
-      dataOfBirth: new Date("1999-09-15"),
-      phone: "1138929372",
-      specialization: "pediatria",
-      role: "admin",
+      username,
+      fullname,
+      password,
+      gender,
+      dataOfBirth,
+      phone,
+      specialization,
+      role,
     });
 
     newuser.password = await newuser.encryptPassword(newuser.password);
@@ -73,3 +74,20 @@ export const getProfile = async (req, res) => {
     return res.status(500).json("User Not Found");
   }
 };
+
+export const deleteProfile = async (req, res) => {
+  
+  const { id } = req.params;
+  
+  try {
+    
+    const userDelete = await User.findByIdAndDelete(id);
+
+    if(!userDelete) return res.status(402).json("User Not Found");
+
+    return res.status(200).json(userDelete);
+
+  } catch (error) {
+    return res.status(500).json("User Not Found");
+  }
+}
