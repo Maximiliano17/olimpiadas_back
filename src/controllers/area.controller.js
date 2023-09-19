@@ -12,8 +12,21 @@ export const getAllAreas = async (req, res) => {
   }
 };
 
-export const getArea = (req, res) => {
-  res.send("get area");
+export const getArea = async (req, res) => {
+  
+  const { id } = req.params;
+  
+  try {
+    
+    const findArea = await Area.findById(id);
+
+    if(!findArea) return res.status(404).json("Area Not Found");
+
+    return res.status(200).json({ findArea });
+
+  } catch (error) {
+    return res.json(error)
+  }
 };
 
 export const createArea = async (req, res) => {
