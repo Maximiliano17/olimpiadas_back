@@ -27,6 +27,10 @@ export const areaSchema = new Schema({
     lowercase: true,
     required: true,
   },
+  alarm: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default model("Area", areaSchema);

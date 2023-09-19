@@ -1,5 +1,8 @@
 import express from "express";
+import { Server } from "socket.io";
+import http from "http";
 import "./database.js";
+import sockets from "./sockets.js";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 import areaRoutes from "./routes/area.routes.js";
@@ -18,6 +21,14 @@ app.use("/api/v1/area", areaRoutes);
 
 // Server
 
-app.listen(app.get("PORT"), () => {
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+  },
+});
+sockets(io);
+
+server.listen(app.get("PORT"), () => {
   console.log("app escuchando en el puerto " + app.get("PORT"));
 });
