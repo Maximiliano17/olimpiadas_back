@@ -6,15 +6,11 @@ export const signin = async (req, res) => {
   try {
     const user = await User.findOne({ username });
 
-    if (!user)
-      return res.status(400).json({ status: 400, message: "User Not Found." });
+    if (!user) return res.status(400).json({ status: 400, message: "User Not Found." });
 
     const authPassword = await user.validatePassword(password);
 
-    if (!authPassword)
-      return res
-        .status(400)
-        .json({ status: 400, message: "Error Password Incorrect" });
+    if (!authPassword) return res.status(400).json({ status: 400, message: "Error Password Incorrect" });
 
     return res.status(200).json({ user });
   } catch (error) {
