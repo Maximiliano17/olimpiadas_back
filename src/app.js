@@ -6,6 +6,7 @@ import sockets from "./sockets.js";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 import areaRoutes from "./routes/area.routes.js";
+import patientRoutes from "./routes/patient.routes.js";
 
 // Settings
 
@@ -18,6 +19,7 @@ app.set("PORT", process.env.PORT || 4000);
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/area", areaRoutes);
+app.use("/api/v1/patient", patientRoutes);
 
 // Server
 

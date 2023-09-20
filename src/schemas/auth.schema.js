@@ -3,7 +3,7 @@ import z from "zod";
 const roleEnum = ["admin", "user"];
 const genderEnum = ["male", "female", "other"];
 const specializationEnum = [
-  "cirujano",
+  "cirugia",
   "pediatria",
   "ginecologia",
   "obstetricia",

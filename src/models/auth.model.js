@@ -33,7 +33,7 @@ const userSchema = new Schema({
   specialization: {
     type: String,
     enum: [
-      "cirujano",
+      "cirugia",
       "pediatria",
       "ginecologia",
       "obstetricia",

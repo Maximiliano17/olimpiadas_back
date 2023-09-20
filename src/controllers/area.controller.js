@@ -13,19 +13,16 @@ export const getAllAreas = async (req, res) => {
 };
 
 export const getArea = async (req, res) => {
-  
   const { id } = req.params;
-  
+
   try {
-    
     const findArea = await Area.findById(id);
 
-    if(!findArea) return res.status(404).json("Area Not Found");
+    if (!findArea) return res.status(404).json("Area Not Found");
 
     return res.status(200).json({ findArea });
-
   } catch (error) {
-    return res.json(error)
+    return res.json(error);
   }
 };
 
@@ -50,4 +47,46 @@ export const createArea = async (req, res) => {
 
 export const updateArea = (req, res) => {
   res.send("update area");
+};
+
+export const updatePersonal = async (req, res) => {
+  const { areaId, userId } = req.body;
+
+  try {
+    const area = await Area.findById(areaId);
+
+    if (!area) {
+      return res.status(404).json("Área no encontrada");
+    }
+
+    area.personal.push(userId);
+
+    const updatedArea = await area.save();
+
+    return res.status(200).json(updatedArea);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+
+  res.json("actualizado");
+};
+
+export const deletePersonal = async (req, res) => {
+  const { areaId, userId } = req.params;
+
+  try {
+    const area = await Area.findById(areaId);
+
+    if (!area) {
+      return res.status(404).json("Área no encontrada");
+    }
+
+    area.personal.pull(userId);
+
+    const updatedArea = await area.save();
+
+    return res.status(200).json(updatedArea);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };

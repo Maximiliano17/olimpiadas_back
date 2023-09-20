@@ -17,6 +17,6 @@ Routes
   .post("/signup", signup)
   .get("/", getAllProfiles)
   .get("/:id", getProfile)
-  .delete("/:id", deleteProfile);
+  .delete("/:id", deleteProfile)
 
 export default Routes;

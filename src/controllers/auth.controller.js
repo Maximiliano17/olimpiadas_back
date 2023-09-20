@@ -6,11 +6,15 @@ export const signin = async (req, res) => {
   try {
     const user = await User.findOne({ username });
 
-    if (!user) return res.status(400).json({ status: 400, message: "User Not Found." });
+    if (!user)
+      return res.status(400).json({ status: 400, message: "User Not Found." });
 
     const authPassword = await user.validatePassword(password);
 
-    if (!authPassword) return res.status(400).json({ status: 400, message: "Error Password Incorrect" });
+    if (!authPassword)
+      return res
+        .status(400)
+        .json({ status: 400, message: "Error Password Incorrect" });
 
     return res.status(200).json({ user });
   } catch (error) {
@@ -19,7 +23,16 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-    const { username, password, gender, phone, specialization, role, dataOfBirth, fullname } = req.body;
+  const {
+    username,
+    password,
+    gender,
+    phone,
+    specialization,
+    role,
+    dataOfBirth,
+    fullname,
+  } = req.body;
 
   try {
     const newuser = await User.create({
@@ -67,23 +80,20 @@ export const getProfile = async (req, res) => {
 
     return res.status(200).json({ user: userFind });
   } catch (error) {
-    return res.status(500).json("User Not Found");
+    return res.status(500).json("User Not Found Internal Error");
   }
 };
 
 export const deleteProfile = async (req, res) => {
-  
   const { id } = req.params;
-  
+
   try {
-    
     const userDelete = await User.findByIdAndDelete(id);
 
-    if(!userDelete) return res.status(402).json("User Not Found");
+    if (!userDelete) return res.status(402).json("User Not Found");
 
     return res.status(200).json(userDelete);
-
   } catch (error) {
     return res.status(500).json("User Not Found");
   }
-}
+};
