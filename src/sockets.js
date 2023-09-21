@@ -2,7 +2,9 @@ import Area from "./models/area.model.js";
 
 const sockets = (io) => {
   io.on("connection", (socket) => {
-    socket.on("client:openAlarm", async (id) => {
+    socket.on("client:openAlarm", async () => {
+      let id = "650b6a314bdf4b36752883df";
+
       try {
         const updateAlarm = await Area.findByIdAndUpdate(id, { alarm: true });
 

@@ -97,3 +97,30 @@ export const deleteProfile = async (req, res) => {
     return res.status(500).json("User Not Found");
   }
 };
+
+export const updateProfile = async (req, res) => {
+  const { gender, phone, specialization, dataOfBirth, fullname } = req.body;
+  const {id} = req.params;
+
+
+  try {
+    const updateFields = {};
+
+    if (gender) updateFields.gender = gender;
+    if (phone) updateFields.phone = phone;
+    if (specialization) updateFields.specialization = specialization;
+    if (fullname) updateFields.fullname = fullname;
+    if (dataOfBirth) updateFields.dataOfBirth = dataOfBirth;
+
+    const updateProfile = await User.findByIdAndUpdate(id, updateFields, {
+      new: true,
+    });
+
+    if (!updateFields)
+      return res.status(400).json("no se pudo actualizar el profile");
+
+    return res.status(200).json(updateFields);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};

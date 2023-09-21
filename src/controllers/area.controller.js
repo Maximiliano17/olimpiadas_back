@@ -1,3 +1,4 @@
+import res from "express/lib/response.js";
 import Area from "../models/area.model.js";
 
 export const getAllAreas = async (req, res) => {
@@ -45,8 +46,28 @@ export const createArea = async (req, res) => {
   }
 };
 
-export const updateArea = (req, res) => {
-  res.send("update area");
+export const updateArea = async () => {
+  const { name, level, schedule } = req.body;
+  const { id } = req.params;
+
+  try {
+    const updateFields = {};
+
+    if (name) updateFields.name = name;
+    if (level) updateFields.level = level;
+    if (schedule) updateFields.schedule = schedule;
+
+    const updateProfile = await User.findByIdAndUpdate(id, updateFields, {
+      new: true,
+    });
+
+    if (!updateFields) return res.status(400).json("no se pudo actualizar el area");
+
+    return res.status(200).json(updateFields);
+
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 };
 
 export const updatePersonal = async (req, res) => {
@@ -69,6 +90,20 @@ export const updatePersonal = async (req, res) => {
   }
 
   res.json("actualizado");
+};
+
+export const deleteArea = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const findArea = await Area.findByIdAndDelete(id);
+
+    if (!findArea) return res.status(402).json("no se pudo borrar el area");
+
+    return res.status(200).json({ area: findArea });
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 };
 
 export const deletePersonal = async (req, res) => {

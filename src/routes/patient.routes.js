@@ -1,8 +1,17 @@
 import { Router } from "express";
-import { signup } from "../controllers/patient.controller.js";
+import {
+  signup,
+  getAllPatients,
+  getPatient,
+  updatePatient,
+  deletePatient,
+} from "../controllers/patient.controller.js";
 
 const Routes = Router();
 
-Routes.post("/signup", test);
+Routes.post("/signup", signup)
+  .get("/", getAllPatients)
+  .get("/:id", getPatient)
+  .delete("/:id", deletePatient);
 
 export default Routes;
