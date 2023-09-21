@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const username = "JuampaVLB";
 const password = "TlThRUmQWNVA785n";
 
-const URI = `mongodb://0.0.0.0:27017/hospital`;
+const URI = `mongodb+srv://${username}:${password}@cluster0.ktoxf8e.mongodb.net/hospital?retryWrites=true&w=majority`;
 
 
 // mongodb+srv://${username}:${password}@cluster0.ktoxf8e.mongodb.net/hospital?retryWrites=true&w=majority
