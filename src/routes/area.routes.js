@@ -5,6 +5,7 @@ import {
   createArea,
   updateArea,
   updatePersonal,
+  updatePatient,
   deletePersonal,
   deleteArea,
 } from "../controllers/area.controller.js";
@@ -18,6 +19,7 @@ Routes.get("/", getAllAreas)
   .post("/", schemaValidation(areaSchema), createArea)
   .patch("/:id", updateArea)
   .put("/personal", updatePersonal)
+  .put("/patient", updatePatient)
   .delete("/personal/:areaId/:userId", deletePersonal)
   .delete("/:id", deleteArea);
 

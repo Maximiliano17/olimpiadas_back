@@ -11,6 +11,18 @@ export const areaSchema = new Schema({
     type: Number,
     default: 1,
   },
+  patients: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Patient",
+    },
+  ],
+  personal: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   level: {
     type: String,
     Enum: ["low", "normal", "high"],

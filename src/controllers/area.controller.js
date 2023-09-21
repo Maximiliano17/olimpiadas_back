@@ -1,5 +1,6 @@
 import res from "express/lib/response.js";
 import Area from "../models/area.model.js";
+import Patient from "../models/patient.model.js";
 
 export const getAllAreas = async (req, res) => {
   try {
@@ -61,10 +62,10 @@ export const updateArea = async () => {
       new: true,
     });
 
-    if (!updateFields) return res.status(400).json("no se pudo actualizar el area");
+    if (!updateFields)
+      return res.status(400).json("no se pudo actualizar el area");
 
     return res.status(200).json(updateFields);
-
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -81,6 +82,38 @@ export const updatePersonal = async (req, res) => {
     }
 
     area.personal.push(userId);
+
+    const updatedArea = await area.save();
+
+    return res.status(200).json(updatedArea);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+
+  res.json("actualizado");
+};
+
+export const updatePatient = async (req, res) => {
+  const { areaId, patientId } = req.body;
+
+  try {
+    const area = await Area.findById(areaId);
+
+    if (!area) {
+      return res.status(404).json("Área no encontrada");
+    }
+
+    const patient = await Patient.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json("Paciente no encontrado");
+    }
+
+    if (area.patients.length >= area.beds) {
+      return res.status(400).json("Todas las camas están ocupadas");
+    }
+
+    area.patients.push(patientId);
 
     const updatedArea = await area.save();
 
