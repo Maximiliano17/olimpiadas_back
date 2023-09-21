@@ -41,7 +41,7 @@ export const getPatient = async (req, res) => {
 
     if (!findPatient) return res.status(500).json("no se encontraron areas!");
 
-    return res.status(200).json(findPatient);
+    return res.status(200).json({findPatient});
   } catch (error) {
     return res.status(500).json(findPatient);
   }
