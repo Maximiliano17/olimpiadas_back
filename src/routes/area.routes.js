@@ -7,6 +7,7 @@ import {
   updatePersonal,
   updatePatient,
   deletePersonal,
+  deletePatient,
   deleteArea,
 } from "../controllers/area.controller.js";
 import { schemaValidation } from "../middlewares/validator.middlewares.js";
@@ -21,6 +22,7 @@ Routes.get("/", getAllAreas)
   .put("/personal", updatePersonal)
   .put("/patient", updatePatient)
   .delete("/personal/:areaId/:userId", deletePersonal)
+  .delete("/patient/:areaId/:patientId", deletePatient)
   .delete("/:id", deleteArea);
 
 export default Routes;

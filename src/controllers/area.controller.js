@@ -158,3 +158,24 @@ export const deletePersonal = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+export const deletePatient = async (req, res) => {
+  const { areaId, patientId } = req.params;
+  console.log("areaId: " + areaId);
+  console.log("patientId: " + patientId);
+  try {
+    const area = await Area.findById(areaId);
+
+    if (!area) {
+      return res.status(404).json("Área no encontrada");
+    }
+
+    area.patients.pull(patientId);
+
+    const updatedArea = await area.save();
+
+    return res.status(200).json(updatedArea);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
