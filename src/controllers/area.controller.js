@@ -47,8 +47,8 @@ export const createArea = async (req, res) => {
   }
 };
 
-export const updateArea = async () => {
-  const { name, level, schedule } = req.body;
+export const updateArea = async (req, res) => {
+  const { name, level, schedule, beds } = req.body;
   const { id } = req.params;
 
   try {
@@ -57,14 +57,14 @@ export const updateArea = async () => {
     if (name) updateFields.name = name;
     if (level) updateFields.level = level;
     if (schedule) updateFields.schedule = schedule;
+    if (beds) updateFields.schedule = schedule;
 
-    const updateProfile = await User.findByIdAndUpdate(id, updateFields, {
+    const updateProfile = await Area.findByIdAndUpdate(id, updateFields, {
       new: true,
     });
 
     if (!updateFields)
       return res.status(400).json("no se pudo actualizar el area");
-
     return res.status(200).json(updateFields);
   } catch (error) {
     return res.status(500).json(error);

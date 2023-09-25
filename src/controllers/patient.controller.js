@@ -41,7 +41,7 @@ export const getPatient = async (req, res) => {
 
     if (!findPatient) return res.status(500).json("no se encontraron areas!");
 
-    return res.status(200).json({findPatient});
+    return res.status(200).json({ findPatient });
   } catch (error) {
     return res.status(500).json(findPatient);
   }
@@ -78,7 +78,8 @@ export const updatePatient = async (req, res) => {
       new: true,
     });
 
-    if (!updateFields) return res.status(400).json("no se pudo actualizar el profile");
+    if (!updateFields)
+      return res.status(400).json("no se pudo actualizar el profile");
 
     return res.status(200).json(updateFields);
   } catch (error) {

@@ -12,6 +12,7 @@ const Routes = Router();
 Routes.post("/signup", signup)
   .get("/", getAllPatients)
   .get("/:id", getPatient)
-  .delete("/:id", deletePatient);
+  .delete("/:id", deletePatient)
+  .patch("/:id", updatePatient);
 
 export default Routes;

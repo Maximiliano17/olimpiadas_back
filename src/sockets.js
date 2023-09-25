@@ -2,8 +2,8 @@ import Area from "./models/area.model.js";
 
 const sockets = (io) => {
   io.on("connection", (socket) => {
-    socket.on("client:openAlarm", async () => {
-      let id = "650b6a314bdf4b36752883df";
+    socket.on("client:openAlarm", async (id) => {
+      // let id = "650b6a314bdf4b36752883df";
 
       try {
         const updateAlarm = await Area.findByIdAndUpdate(id, { alarm: true });
@@ -24,7 +24,7 @@ const sockets = (io) => {
 
         if (!updateAlarm) console.log("no se pudo activar la alarma");
 
-        socket.broadcast.emit("server:reloadAlarm", true);
+        socket.broadcast.emit("server:reloadAlarm", false);
 
         console.log("Alarma desactivada");
       } catch (err) {
